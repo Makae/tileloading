@@ -24,7 +24,17 @@
       background-color: #a0a0a0;
     }
 
-    #canvas .img_tile {
+    #canvas .img-wrapper {
+
+    }
+
+    #canvas .img-wrapper.loaded img {
+      z-index: 20;
+      animation: pulsate linear 0.8s alternate;
+      animation-iteration-count: 1;
+    }
+
+    #canvas .img-tile {
       position: absolute;
       height: 100px;
       width: 100px;
@@ -41,8 +51,52 @@
       backface-visibility:hidden;
     }
 
-    #canvas .img_tile.loaded {
-      z-index: 20;
+    .animation-pulsate {
+      animation: pulsate linear 0.8s infinite alternate;
+      transform-origin: 50% 50%;
+    }
+
+    .animation-offset-1 {
+      animation-delay: 0.1s;
+    }
+    .animation-offset-2 {
+      animation-delay: 0.2s;
+    }
+    .animation-offset-3 {
+      animation-delay: 0.3s;
+    }
+    .animation-offset-4 {
+      animation-delay: 0.4s;
+    }
+
+
+    /*@-webkit-keyframes pulsate {
+      0% {
+        -webkit-transform: scale(0.1, 0.1);
+        opacity: 0.0;
+      }
+      50% {
+        opacity: 1.0;
+      }
+      100% {
+        -webkit-transform: scale(1.2, 1.2);
+        opacity: 0.0;
+      }
+    }*/
+    @keyframes pulsate {
+      0% {
+        transform: scale(1, 1) rotate(5deg);
+        opacity: 0.8;
+      }
+      50% {
+        /*transform: scale(1.1, 1.1);*/
+        transform: scale(0.8, 0.8) rotate(-5deg);
+        opacity: 1.0;
+      }
+      100% {
+       transform: scale(1, 1) rotate(5deg);
+       opacity: 0.8;
+      }
     }
 
   </style>

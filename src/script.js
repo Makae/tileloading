@@ -21,19 +21,30 @@ var canvas_module = {
   },
 
   loadTiles : function() {
-    for(var i=0; i<this.num_tiles; i++)
-      this.loadTile(i);
+    var self = this;
+    var time = 0;
+    var offset = 1500;
+    for(var i=0; i<this.num_tiles; i++) {
+      // window.setTimeout((function(i) {
+      //   return function() {
+          self.loadTile(i);
+      //   };
+      // })(i), time);
+      // time += offset;
+    }
   },
 
   loadTile : function(idx) {
     var self = this;
     var ctxt = this.prepareTile(idx);
-    this.service.request({
+    self.service.request({
       url : 'gettile.php',
       method : 'GET',
       data : {tile_idx: idx, format: 'base64'},
       success : function(request) {
-        self.tileLoaded(ctxt, request.result.data);
+        window.setTimeout(function() {
+          self.tileLoaded(ctxt, request.result.data);
+        }, (Math.random()*250));
       },
       error : function() {
         console.log("ERROR WHILE TILE LOADING");
@@ -47,16 +58,23 @@ var canvas_module = {
     var left = x * this.tile_width;
     var top = y * this.tile_height;
 
-    img = new Image();
-    img.className = 'img_tile';
-    img.style.transform = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
-    this.canvas.appendChild(img);
-    return img;
+    var img = new Image();
+    img.className = 'img-tile animation-pulsate' + ' animation-offset-' + idx % 5;
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'img-wrapper';
+    wrapper.style.transform = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
+
+    wrapper.appendChild(img);
+    this.canvas.appendChild(wrapper);
+    return wrapper;
   },
 
-  tileLoaded : function(ctxt, data) {
-    ctxt.src = 'data:image/png;base64, ' + data;
-    ctxt.className = 'img_tile loaded';
+  tileLoaded : function(wrapper, data) {
+    wrapper.className = 'img-wrapper loaded';
+    var img = wrapper.getElementsByClassName('img-tile')[0];
+    img.src = 'data:image/png;base64, ' + data;
+    img.className = 'img-tile';
   }
 };
 
