@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="service.js"></script>
+  <script type="text/javascript" src="tests.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100%;
+      width: 100%;
+      overflow: scroll;
+    }
+
+
+    #canvas {
+      position: relative;
+      width: 5000px;
+      height: 800px;
+      background-color: #a0a0a0;
+    }
+
+    #canvas .img_tile {
+      position: absolute;
+      height: 100px;
+      width: 100px;
+      background-color: #afafaf;
+      z-index: 10;
+      -webkit-transform:translate3d(0, 0, 0);
+      -moz-transform:translate3d(0, 0, 0);
+      -ms-transform:translate3d(0, 0, 0);
+      transform:translate3d(0, 0, 0);
+      -webkit-backface-visibility:hidden;
+      -moz-backface-visibility:hidden;
+      -ms-backface-visibility:hidden;
+      -o-backface-visibility:hidden;
+      backface-visibility:hidden;
+    }
+
+    #canvas .img_tile.loaded {
+      z-index: 20;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="canvas" width="5000" height="800"></div>
+</body>
+</html>
